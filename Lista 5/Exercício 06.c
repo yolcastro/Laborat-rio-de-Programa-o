@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define TAM 100
+
+void copiarString(char *str1, char *str2) {
+    while (*str1 != '\0') {
+        *str2 = *str1;
+        str1++;
+        str2++;
+    }
+}
+
+int main() {
+    char str1[TAM];
+    char *str2;
+
+    printf("Escreva algo:\n");
+    fgets(str1, TAM, stdin);
+    
+    str1[strcspn(str1, "\n")] = '\0';
+
+    str2 = (char*)malloc(strlen(str1) + 1);
+    
+    if (!str2) {
+        puts("Memória insuficiente");
+        exit(1);
+    }
+
+    copiarString(str1, str2);
+    
+    printf("String 1:\n");
+    printf("[%p] %s\n", str1, str1);
+    printf("String 2:\n");
+    printf("[%p] %s\n", str2, str2);
+    
+    free(str2);
+    
+    return 0;
+}
